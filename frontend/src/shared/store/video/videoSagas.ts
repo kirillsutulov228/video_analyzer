@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects'
 import { RectangleEvent, videoSlice } from '@/shared/store/video/videoSlice'
 import { call } from '@redux-saga/core/effects'
 
-const FETCH_VIDEO_EVENTS_URL = 'https://5025y.wiremockapi.cloud/json1/1'
+const FETCH_VIDEO_EVENTS_URL = 'https://5025y.wiremockapi.cloud/json/1'
 
 export const videoSagasActions = {
   fetchRectangleEvents: () => ({ type: 'FETCH_RECTANGLE_EVENTS', payload: null })

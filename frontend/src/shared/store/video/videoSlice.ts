@@ -15,6 +15,7 @@ const videoSliceInitialState = {
   rectangleEvents: [] as RectangleEvent[],
   isRectangleEventsLoading: true,
   rectangleEventsFetchError: null as string | null,
+  videoLoadingError: null as string | null,
   currentTimestamp: 0
 }
 
@@ -40,6 +41,10 @@ export const videoSlice = createSlice({
 
     updateCurrentTimestamp (state, action: PayloadAction<number>) {
       state.currentTimestamp = action.payload
+    },
+
+    setVideoLoadingError (state, action: PayloadAction<string | null>) {
+      state.videoLoadingError = action.payload
     }
   }
 })

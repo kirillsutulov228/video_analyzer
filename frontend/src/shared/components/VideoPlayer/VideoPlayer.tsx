@@ -19,7 +19,7 @@ const DynamicReactPlayer = dynamic(() => import('react-player'), {
   loading: () => <div className={'react-player-loader'}></div>
 })
 
-export default function VideoPlayer ({ wrapperRef, className, children, controls, onReady, onProgress, ...props }: VideoPlayerProps) {
+export default function VideoPlayer ({ wrapperRef, className, children, onReady, onProgress, ...props }: VideoPlayerProps) {
   const wrapperRefFallback = useRef<HTMLDivElement | null>(null)
   const wrapperElement = (wrapperRef?.current || wrapperRefFallback.current)
   const [currentTimestamp, setCurrentTimestamp] = useState(0)
@@ -65,6 +65,7 @@ export default function VideoPlayer ({ wrapperRef, className, children, controls
     <div className={classNames('video-wrapper', className)} ref={wrapperRef || wrapperRefFallback}>
       <DynamicReactPlayer
         {...props}
+        controls={false}
         onProgress={onVideoProgress}
         onPlay={() => setIsVideoRunning(true)}
         onPause={() => setIsVideoRunning(false)}

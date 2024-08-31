@@ -1,0 +1,34 @@
+@import "@/app/globals";
+
+.rectangle-event-list {
+  padding: 8px 4px;
+  background-color: #ededed;
+  width: 240px;
+
+  border-radius: 4px;
+  .rectangle-event-list-item {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    margin-top: 8px;
+    &[data-active="true"] {
+      background-color: #00FF00;
+    }
+  }
+  .rectangle-event-title {
+    margin: 0;
+  }
+  &[data-loading="true"], &[data-error="true"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  &[data-error="true"] {
+    color: #ff0000;
+  }
+  &[data-loading="true"] {
+    @include skeleton;
+  }
+}

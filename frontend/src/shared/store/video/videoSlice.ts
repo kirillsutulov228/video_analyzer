@@ -1,15 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-export type RectangleEvent = {
-  'timestamp': number,
-  'duration': number,
-  'zone': {
-    'left': number,
-    'top': number,
-    'width': number,
-    'height': number
-  }
-}
+import { RectangleEvent } from '@/shared/types'
 
 const videoSliceInitialState = {
   rectangleEvents: [] as RectangleEvent[],
@@ -23,8 +13,8 @@ export const videoSlice = createSlice({
   name: 'video',
   initialState: videoSliceInitialState,
   reducers: {
-    reset (state) {
-      Object.assign(state, videoSliceInitialState)
+    reset () {
+      return videoSliceInitialState
     },
 
     loadRectangleEvents (state, action: PayloadAction<RectangleEvent[]>) {

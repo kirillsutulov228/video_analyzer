@@ -97,8 +97,8 @@ export default function RectangleEventViewer ({
           ref={drawLayerRef}
           width={drawLayerWidth}
           height={drawLayerHeight} />
-         </VideoPlayer>
-         {videoLoadError && <p className={'video-load-error'}>{videoLoadError}</p>}
+        </VideoPlayer>
+        {videoLoadError && <p className={'video-load-error'}>{videoLoadError}</p>}
       </div>
       <div className={'rectangle-event-list-wrapper'}>
         <RectangleEventList

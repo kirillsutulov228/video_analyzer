@@ -23,6 +23,8 @@ export default function VideoPlayer ({ wrapperRef, className, children, onReady,
   const wrapperRefFallback = useRef<HTMLDivElement | null>(null)
   const wrapperElement = (wrapperRef?.current || wrapperRefFallback.current)
   const [currentTimestamp, setCurrentTimestamp] = useState(0)
+  const menuVisibilityTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [isMenuVisible, setIsMenuVisible] = useState(true)
 
   const videoElement = useMemo(() => {
     return wrapperElement?.querySelector('video')
@@ -31,19 +33,36 @@ export default function VideoPlayer ({ wrapperRef, className, children, onReady,
   const [isVideoReady, setIsVideoReady] = useState(false)
   const [isVideoRunning, setIsVideoRunning] = useState(false)
 
+  const updateMenuVisibility = useCallback((timeout: number = 3000) => {
+    if (menuVisibilityTimeoutRef.current) {
+      clearTimeout(menuVisibilityTimeoutRef.current)
+    }
+    setIsMenuVisible(true)
+    menuVisibilityTimeoutRef.current = setTimeout(() => {
+      setIsMenuVisible(false)
+    }, timeout)
+  }, [])
+
   useEffect(() => {
     if (!videoElement) return
 
     const onVideoClick = (event: MouseEvent) => {
       event.preventDefault()
+      updateMenuVisibility()
       videoElement.paused ? videoElement.play() : videoElement.pause()
     }
 
+    const onMouseMove = () => {
+      updateMenuVisibility()
+    }
+
     videoElement.addEventListener('click', onVideoClick)
+    videoElement.addEventListener('mousemove', onMouseMove)
     return () => {
       videoElement.removeEventListener('click', onVideoClick)
+      videoElement.removeEventListener('mousemove', onMouseMove)
     }
-  }, [videoElement, wrapperElement])
+  }, [updateMenuVisibility, videoElement, wrapperElement])
 
   const onReadyHandler = useCallback((player: ReactPlayer) => {
     setIsVideoReady(true)
@@ -59,7 +78,8 @@ export default function VideoPlayer ({ wrapperRef, className, children, onReady,
     if (!videoElement) return
     const target = event.target as HTMLInputElement
     videoElement.currentTime = parseFloat(target.value)
-  }, [videoElement])
+    updateMenuVisibility()
+  }, [videoElement, updateMenuVisibility])
 
   return (
     <div className={classNames('video-wrapper', className)} ref={wrapperRef || wrapperRefFallback}>
@@ -73,7 +93,7 @@ export default function VideoPlayer ({ wrapperRef, className, children, onReady,
       >
       </DynamicReactPlayer>
       {!isVideoRunning && isVideoReady && <button className={'play-button-thumbnail'} title={'play'} />}
-      {isVideoReady && (
+      {isVideoReady && isMenuVisible && (
         <nav className={'video-control-nav'}>
           <span className={'current-timestamp'}>{new Date(currentTimestamp * 1000).toISOString().substring(11, 19)}</span>
           <input

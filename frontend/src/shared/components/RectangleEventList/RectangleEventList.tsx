@@ -43,7 +43,6 @@ export default function RectangleEventList ({
         } as PreparedRectangleEvent
       })
   }, [activeRectangleEvents, rectangleEvents, timeFormat])
-  console.log({ preparedRectangleEvents })
   return (
     <div className={classNames('rectangle-event-list', className)} data-loading={isRectangleEventsLoading} data-error={Boolean(rectangleEventsError)}>
       {isRectangleEventsLoading

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RectangleEvent } from '@/shared/types'
 
-const videoSliceInitialState = {
+export const videoSliceInitialState = {
   rectangleEvents: [] as RectangleEvent[],
   isRectangleEventsLoading: true,
   rectangleEventsFetchError: null as string | null,

@@ -16,6 +16,8 @@ export type RectangleEventViewerProps = {
   className?: string
 }
 
+export const RECTANGLE_COLOR = '#00FF00'
+
 export default function RectangleEventViewer ({
   videoUrl,
   rectangleEvents,
@@ -50,8 +52,9 @@ export default function RectangleEventViewer ({
 
   const moveToRectangleEvent = (rectangleEvent: RectangleEvent) => {
     const videoElement = videoWrapperRef.current.querySelector('video') as HTMLVideoElement
-    videoElement.currentTime = rectangleEvent.timestamp + 0.0001
-    setCurrentTimestamp(currentTimestamp)
+    const newTimestamp = rectangleEvent.timestamp + 0.0001
+    videoElement.currentTime = newTimestamp
+    setCurrentTimestamp(newTimestamp)
   }
 
   const activeRectangleEvents = useMemo(() => {
@@ -64,7 +67,7 @@ export default function RectangleEventViewer ({
     const context = drawLayerRef.current.getContext('2d') as CanvasRenderingContext2D
     context.clearRect(0, 0, drawLayerWidth, drawLayerHeight)
     for (const rect of activeRectangleEvents) {
-      context.strokeStyle = '#00FF00'
+      context.strokeStyle = RECTANGLE_COLOR
       context.strokeRect(rect.zone.left, rect.zone.top, rect.zone.width, rect.zone.height)
     }
   }, [activeRectangleEvents, drawLayerHeight, drawLayerWidth])
@@ -75,7 +78,6 @@ export default function RectangleEventViewer ({
         <VideoPlayer
           width={'100%'}
           height={'100%'}
-          controls={false}
           className={'rectangle-event-video-player'}
           url={videoUrl}
           wrapperRef={videoWrapperRef}
@@ -94,6 +96,7 @@ export default function RectangleEventViewer ({
         >
         <canvas
           className={'video-draw-layer'}
+          data-testid={'video-draw-layer'}
           ref={drawLayerRef}
           width={drawLayerWidth}
           height={drawLayerHeight} />

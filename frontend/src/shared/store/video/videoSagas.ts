@@ -9,7 +9,7 @@ export const videoSagasActions = {
   fetchRectangleEvents: () => ({ type: 'FETCH_RECTANGLE_EVENTS', payload: null })
 }
 
-function * fetchRectangleEvents () {
+export function * fetchRectangleEvents () {
   yield put(videoSlice.actions.reset())
   try {
     const response: Awaited<ReturnType<typeof fetch>> = yield call(fetch, FETCH_VIDEO_EVENTS_URL)

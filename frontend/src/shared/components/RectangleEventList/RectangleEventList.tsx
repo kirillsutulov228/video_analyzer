@@ -10,7 +10,7 @@ export type RectangleEventProps = {
   activeRectangleEvents: RectangleEvent[],
   isRectangleEventsLoading: boolean,
   rectangleEventsError?: string | null,
-  onRectangleEventClick: (rectangleEvent: RectangleEvent) => void,
+  onRectangleEventClick?: (rectangleEvent: RectangleEvent) => void,
   timeFormat?: string
 }
 
@@ -48,14 +48,15 @@ export default function RectangleEventList ({
       {isRectangleEventsLoading
         ? <div className={'rectangle-event-list-loader'}>Загрузка событий...</div>
         : rectangleEventsError
-          ? <div className={'rectangle-event-list-error'}>{rectangleEventsError}</div>
+          ? <div className={'rectangle-event-list-error'} data-testid={'rectangle-event-list-error'}>{rectangleEventsError}</div>
           : preparedRectangleEvents.map((rectangleEvent, index) => {
             return (
               <div
                 key={rectangleEvent.original.timestamp}
                 className={'rectangle-event-list-item'}
+                data-testid={'rectangle-event-list-item'}
                 data-active={rectangleEvent.isActive}
-                onClick={() => onRectangleEventClick(rectangleEvent.original)}
+                onClick={() => onRectangleEventClick?.(rectangleEvent.original)}
               >
                 <p className={'rectangle-event-title'}>№ {index + 1} ({rectangleEvent.startTime})</p>
               </div>

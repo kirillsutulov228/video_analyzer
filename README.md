@@ -33,5 +33,6 @@ http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp
 
 ## Инструкция по запуску
 Разрабатывалось под Node v20.17.0.
-Для запуска локально из папки frontend выполнить команду `npm run dev` и открыть http://localhost:3000
+Перед запуском установить зависимости: из папки frontend выполнить `npm install`. 
+Для запуска локально из папки frontend выполнить команду `npm run dev` и открыть http://localhost:3000.
 Для запуска тестов выполнить команду `npm run test`

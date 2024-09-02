@@ -30,3 +30,8 @@ http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp
 1. Использование redux
 2. Использование redux-saga
 3. Покрытие тестами
+
+## Инструкция по запуску
+Разрабатывалось под Node v20.17.0.
+Для запуска локально из папки frontend выполнить команду `npm run dev` и открыть http://localhost:3000
+Для запуска тестов выполнить команду `npm run test`

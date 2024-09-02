@@ -62,5 +62,8 @@ $videoAdaptiveSize: 820px;
       width: 100%;
       display: contents;
     }
+    video {
+      max-height: 75vh;
+    }
   }
 }
